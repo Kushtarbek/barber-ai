@@ -40,7 +40,33 @@ const Hero: React.FC = () => {
       <section className="hero" id="home">
         <h1>Welcome to Blade & Brush</h1>
         <p>Premium grooming services tailored to your style</p>
-        <button onClick={() => alert("Booking System Coming Soon!")}>Book an Appointment</button>
+        <div className="hero-buttons">
+          <div className="btn-booking-group">
+            <a 
+              href="https://calendar.google.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              Book an Appointment
+            </a>
+            <span className="btn-booking-subtitle">See availability</span>
+          </div>
+          <div className="btn-whatsapp-group">
+            <button
+              className="btn-whatsapp"
+              onClick={() =>
+                window.open(
+                  "https://wa.me/12125551234?text=Hello%20Blade%20%26%20Brush%2C%20I%20would%20like%20to%20book%20an%20appointment",
+                  "_blank"
+                )
+              }
+            >
+              💬 WhatsApp
+            </button>
+            <span className="btn-whatsapp-subtitle">Call or text WhatsApp</span>
+          </div>
+        </div>
       </section>
     </>
   );
