@@ -363,17 +363,26 @@ footer p {
   border-radius: 12px;
   background: linear-gradient(135deg, #ff9800 0%, #ffb84d 100%);
   color: #fff;
-  font-size: 2.5rem;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(255, 152, 0, 0.2);
 }
 
+.socials a svg {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
 .socials a:hover {
   transform: translateY(-8px) scale(1.1);
   box-shadow: 0 12px 24px rgba(255, 152, 0, 0.4);
   background: linear-gradient(135deg, #ffb84d 0%, #ff9800 100%);
+}
+
+.socials a:hover svg {
+  transform: rotate(10deg) scale(1.1);
 }
 
 /* Gallery Social Section */
@@ -390,6 +399,13 @@ footer p {
   font-size: 1.3rem;
   font-weight: 600;
   letter-spacing: 0.05em;
+}
+
+.socials-subtitle {
+  color: #b0b0b0;
+  font-size: 0.95rem;
+  margin: 0 0 2rem 0;
+  font-style: italic;
 }
 
 /* Gallery Section */
