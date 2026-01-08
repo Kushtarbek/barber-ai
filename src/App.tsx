@@ -4,7 +4,7 @@ import Services from "./components/Services";
 import Gallery from "./components/Gallery";
 import About from "./components/About";
 import Footer from "./components/Footer";
-import Admin from "./components/Admin";
+import AdminDashboard from "./components/AdminDashboard";
 
 const App: React.FC = () => {
   const [isAdminPage, setIsAdminPage] = useState(false);
@@ -38,7 +38,7 @@ const App: React.FC = () => {
   (window as any).navigateBack = handleBackNav;
 
   if (isAdminPage) {
-    return <Admin />;
+    return <AdminDashboard />;
   }
 
   return (

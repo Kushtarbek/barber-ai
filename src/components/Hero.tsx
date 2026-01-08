@@ -42,12 +42,7 @@ const Hero: React.FC = () => {
         <p>Premium grooming services tailored to your style</p>
         <div className="hero-buttons">
           <div className="btn-booking-group">
-            <a 
-              href="https://calendar.google.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
+            <a href="https://calendar.google.com" target="_blank" rel="noopener noreferrer" className="btn-primary">
               Book an Appointment
             </a>
             <span className="btn-booking-subtitle">See availability</span>
