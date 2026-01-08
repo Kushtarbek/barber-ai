@@ -177,6 +177,22 @@ const Gallery: React.FC = () => {
         >
           {isAutoplay ? "⏸️ Pause" : "▶️ Play"}
         </button>
+
+        {/* Social Media Links Section */}
+        <div className="gallery-socials">
+          <h3>Follow Us</h3>
+          <div className="socials">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram">
+              📸
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" title="Facebook">
+              👥
+            </a>
+            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" title="TikTok">
+              🎵
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

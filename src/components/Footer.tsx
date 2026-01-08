@@ -81,9 +81,9 @@ const Footer: React.FC = () => {
           </p>
         </div>
 
-        {/* Reviews & Social Section */}
+        {/* Reviews Section */}
         <div>
-          <h3 style={{ color: "#ff9800", marginBottom: "1rem" }}>Follow & Review</h3>
+          <h3 style={{ color: "#ff9800", marginBottom: "1rem" }}>Review Us</h3>
           <p>
             <a
               href={yelpUrl}
@@ -105,17 +105,6 @@ const Footer: React.FC = () => {
               ⭐ Review on Yelp
             </a>
           </p>
-          <div className="socials" style={{ marginTop: "1rem" }}>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              📸 Instagram
-            </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-              👥 Facebook
-            </a>
-            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer">
-              🎵 TikTok
-            </a>
-          </div>
         </div>
       </div>
 
