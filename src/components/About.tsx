@@ -2,13 +2,15 @@ import React from "react";
 
 const About: React.FC = () => {
   return (
-    <section className="about" id="about">
-      <h2>About Blade & Brush</h2>
-      <p>
-        Blade & Brush is your neighborhood barbershop where timeless tradition meets modern precision. Our expert
-        barbers are committed to providing exceptional grooming services in a welcoming atmosphere. Come for the cut,
-        stay for the vibe.
-      </p>
+    <section className="about panel panel-about" id="about">
+      <div className="panel-content">
+        <h2 className="panel-title">About</h2>
+        <p className="panel-subtitle">Timeless tradition. Modern precision.</p>
+        <p className="about-body">
+          Blade & Brush is your neighborhood barbershop where tradition meets modern detail. Our team focuses on clean
+          cuts, consistent results, and an experience that feels effortless from start to finish.
+        </p>
+      </div>
     </section>
   );
 };

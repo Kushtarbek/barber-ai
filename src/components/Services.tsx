@@ -96,42 +96,43 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <section className="services" id="services">
-      <h2>
-        Our <span className="services-title-highlight">Services</span>
-      </h2>
-      <p className="services-subtitle">Premium grooming services tailored to your style</p>
-      <div className="services-grid">
-        {services.map((service) => (
-          <div key={service.id} className="service-flip-card" onClick={() => toggleFlip(service.id)}>
-            <div className={`service-flip-inner ${flipped[service.id] ? "flipped" : ""}`}>
-              {/* Front of card */}
-              <div className="service-flip-front">
-                <div className="service-icon">{service.icon}</div>
-                <h3>{service.name}</h3>
-                <p>{service.description}</p>
-                <div className="service-divider"></div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <div className="service-duration">⏱️ {service.duration}</div>
-                  <div className="service-price">{service.price}</div>
-                </div>
-                <div className="flip-hint">Click to see photo</div>
-              </div>
+    <section className="services panel panel-services" id="services">
+      <div className="panel-content">
+        <h2 className="panel-title">Services</h2>
+        <p className="panel-subtitle">Simple pricing. Precision cuts. Great vibes.</p>
 
-              {/* Back of card */}
-              <div className="service-flip-back">
-                <img src={service.image} alt={service.name} />
-                <div className="flip-hint-back">Click to go back</div>
+        <div className="services-grid">
+          {services.map((service) => (
+            <button
+              key={service.id}
+              type="button"
+              className="service-flip-card"
+              onClick={() => toggleFlip(service.id)}
+              aria-label={`View ${service.name}`}
+            >
+              <div className={`service-flip-inner ${flipped[service.id] ? "flipped" : ""}`}>
+                <div className="service-flip-front">
+                  <div className="service-icon" aria-hidden="true">
+                    {service.icon}
+                  </div>
+                  <h3>{service.name}</h3>
+                  <p>{service.description}</p>
+                  <div className="service-divider"></div>
+                  <div className="service-meta">
+                    <div className="service-duration">{service.duration}</div>
+                    <div className="service-price">{service.price}</div>
+                  </div>
+                  <div className="flip-hint">Tap to preview</div>
+                </div>
+
+                <div className="service-flip-back" aria-hidden={!flipped[service.id]}>
+                  <img src={service.image} alt={service.name} />
+                  <div className="flip-hint-back">Tap to return</div>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );
