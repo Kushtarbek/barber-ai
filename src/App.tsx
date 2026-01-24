@@ -42,7 +42,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="site">
       <Hero />
       <Services />
       <Gallery />
