@@ -1,43 +1,5 @@
 import React, { useState, useEffect } from "react";
-
-interface Appointment {
-  id: string;
-  customerName: string;
-  email: string;
-  phone: string;
-  service: string;
-  date: string;
-  time: string;
-  status: "pending" | "confirmed" | "completed" | "cancelled";
-}
-
-interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  lastVisit: string;
-  totalVisits: number;
-}
-
-interface Message {
-  id: string;
-  customerName: string;
-  email: string;
-  phone: string;
-  message: string;
-  timestamp: string;
-  read: boolean;
-}
-
-interface UploadedImage {
-  id: string;
-  title: string;
-  type: "Men" | "Women";
-  description: string;
-  image: string;
-  uploadedAt: string;
-}
+import { apiClient, type Appointment, type Customer, type Message, type GalleryImage } from "../api/client";
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"overview" | "appointments" | "customers" | "messages" | "gallery">(
@@ -46,7 +8,9 @@ const AdminDashboard: React.FC = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [images, setImages] = useState<UploadedImage[]>([]);
+  const [images, setImages] = useState<GalleryImage[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     type: "Men" as "Men" | "Women",
@@ -55,107 +19,31 @@ const AdminDashboard: React.FC = () => {
   });
   const [previewUrl, setPreviewUrl] = useState<string>("");
 
-  // Load data from localStorage
+  // Load data from API
   useEffect(() => {
-    const storedAppointments = localStorage.getItem("appointments");
-    if (storedAppointments) {
-      setAppointments(JSON.parse(storedAppointments));
-    } else {
-      // Add demo appointments
-      const demoAppointments: Appointment[] = [
-        {
-          id: "1",
-          customerName: "John Smith",
-          email: "john@example.com",
-          phone: "+1-212-555-0101",
-          service: "Men's Classic Haircut",
-          date: "2026-01-10",
-          time: "2:00 PM",
-          status: "confirmed",
-        },
-        {
-          id: "2",
-          customerName: "Sarah Johnson",
-          email: "sarah@example.com",
-          phone: "+1-212-555-0102",
-          service: "Women's Haircut",
-          date: "2026-01-10",
-          time: "3:30 PM",
-          status: "confirmed",
-        },
-      ];
-      setAppointments(demoAppointments);
-      localStorage.setItem("appointments", JSON.stringify(demoAppointments));
-    }
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const [appts, custs, msgs, imgs] = await Promise.all([
+          apiClient.getAppointments(),
+          apiClient.getCustomers(),
+          apiClient.getMessages(),
+          apiClient.getGalleryImages(),
+        ]);
+        setAppointments(appts);
+        setCustomers(custs);
+        setMessages(msgs);
+        setImages(imgs);
+      } catch (err) {
+        console.error("Failed to load data:", err);
+        setError("Failed to load data. Please check if the API server is running.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    const storedCustomers = localStorage.getItem("customers");
-    if (storedCustomers) {
-      setCustomers(JSON.parse(storedCustomers));
-    } else {
-      // Add demo customers
-      const demoCustomers: Customer[] = [
-        {
-          id: "1",
-          name: "John Smith",
-          email: "john@example.com",
-          phone: "+1-212-555-0101",
-          lastVisit: "2026-01-05",
-          totalVisits: 8,
-        },
-        {
-          id: "2",
-          name: "Sarah Johnson",
-          email: "sarah@example.com",
-          phone: "+1-212-555-0102",
-          lastVisit: "2026-01-03",
-          totalVisits: 5,
-        },
-        {
-          id: "3",
-          name: "Michael Brown",
-          email: "michael@example.com",
-          phone: "+1-212-555-0103",
-          lastVisit: "2025-12-28",
-          totalVisits: 12,
-        },
-      ];
-      setCustomers(demoCustomers);
-      localStorage.setItem("customers", JSON.stringify(demoCustomers));
-    }
-
-    const storedMessages = localStorage.getItem("customerMessages");
-    if (storedMessages) {
-      setMessages(JSON.parse(storedMessages));
-    } else {
-      // Add demo messages
-      const demoMessages: Message[] = [
-        {
-          id: "1",
-          customerName: "John Smith",
-          email: "john@example.com",
-          phone: "+1-212-555-0101",
-          message: "Hi! I'd like to book an appointment for next Saturday.",
-          timestamp: "2026-01-08 10:30 AM",
-          read: false,
-        },
-        {
-          id: "2",
-          customerName: "Sarah Johnson",
-          email: "sarah@example.com",
-          phone: "+1-212-555-0102",
-          message: "Thanks for the great haircut! See you next month.",
-          timestamp: "2026-01-07 5:15 PM",
-          read: true,
-        },
-      ];
-      setMessages(demoMessages);
-      localStorage.setItem("customerMessages", JSON.stringify(demoMessages));
-    }
-
-    const storedImages = localStorage.getItem("galleryImages");
-    if (storedImages) {
-      setImages(JSON.parse(storedImages));
-    }
+    loadData();
   }, []);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -176,46 +64,61 @@ const AdminDashboard: React.FC = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.title || !formData.description || !formData.image) {
       alert("Please fill in all fields");
       return;
     }
 
-    const newImage: UploadedImage = {
-      id: Date.now().toString(),
-      title: formData.title,
-      type: formData.type,
-      description: formData.description,
-      image: formData.image,
-      uploadedAt: new Date().toLocaleString(),
-    };
-
-    const updatedImages = [...images, newImage];
-    setImages(updatedImages);
-    localStorage.setItem("galleryImages", JSON.stringify(updatedImages));
-    setFormData({ title: "", type: "Men", description: "", image: "" });
-    setPreviewUrl("");
-    alert("Image added successfully!");
+    try {
+      const newImage = await apiClient.createGalleryImage({
+        title: formData.title,
+        type: formData.type,
+        description: formData.description,
+        image: formData.image,
+      });
+      setImages([...images, newImage]);
+      setFormData({ title: "", type: "Men", description: "", image: "" });
+      setPreviewUrl("");
+      alert("Image added successfully!");
+    } catch (err) {
+      console.error("Failed to add image:", err);
+      alert("Failed to add image. Please try again.");
+    }
   };
 
-  const deleteImage = (id: string) => {
-    const updatedImages = images.filter((img) => img.id !== id);
-    setImages(updatedImages);
-    localStorage.setItem("galleryImages", JSON.stringify(updatedImages));
+  const deleteImage = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this image?")) {
+      return;
+    }
+    try {
+      await apiClient.deleteGalleryImage(id);
+      setImages(images.filter((img) => img.id !== id));
+    } catch (err) {
+      console.error("Failed to delete image:", err);
+      alert("Failed to delete image. Please try again.");
+    }
   };
 
-  const updateAppointmentStatus = (id: string, status: "confirmed" | "completed" | "cancelled") => {
-    const updated = appointments.map((apt) => (apt.id === id ? { ...apt, status } : apt));
-    setAppointments(updated);
-    localStorage.setItem("appointments", JSON.stringify(updated));
+  const updateAppointmentStatus = async (id: string, status: "confirmed" | "completed" | "cancelled") => {
+    try {
+      const updated = await apiClient.updateAppointment(id, { status });
+      setAppointments(appointments.map((apt) => (apt.id === id ? updated : apt)));
+    } catch (err) {
+      console.error("Failed to update appointment:", err);
+      alert("Failed to update appointment. Please try again.");
+    }
   };
 
-  const markMessageAsRead = (id: string) => {
-    const updated = messages.map((msg) => (msg.id === id ? { ...msg, read: true } : msg));
-    setMessages(updated);
-    localStorage.setItem("customerMessages", JSON.stringify(updated));
+  const markMessageAsRead = async (id: string) => {
+    try {
+      const updated = await apiClient.updateMessage(id, { read: true });
+      setMessages(messages.map((msg) => (msg.id === id ? updated : msg)));
+    } catch (err) {
+      console.error("Failed to mark message as read:", err);
+      alert("Failed to update message. Please try again.");
+    }
   };
 
   const getBusinessStats = () => {
@@ -227,6 +130,32 @@ const AdminDashboard: React.FC = () => {
   };
 
   const stats = getBusinessStats();
+
+  if (loading) {
+    return (
+      <div className="admin-dashboard">
+        <div className="admin-header">
+          <h1>Blade & Brush - Admin Dashboard</h1>
+        </div>
+        <div style={{ padding: "2rem", textAlign: "center" }}>Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="admin-dashboard">
+        <div className="admin-header">
+          <h1>Blade & Brush - Admin Dashboard</h1>
+        </div>
+        <div style={{ padding: "2rem", textAlign: "center", color: "red" }}>
+          {error}
+          <br />
+          <small>Make sure the backend server is running on port 8080</small>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="admin-dashboard">

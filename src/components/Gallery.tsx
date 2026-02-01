@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { apiClient, type GalleryImage } from "../api/client";
 
 interface GalleryItem {
   id: number;
@@ -6,15 +7,6 @@ interface GalleryItem {
   type: "Men" | "Women";
   description: string;
   image: string;
-}
-
-interface UploadedImage {
-  id: string;
-  title: string;
-  type: "Men" | "Women";
-  description: string;
-  image: string;
-  uploadedAt: string;
 }
 
 const Gallery: React.FC = () => {
@@ -66,22 +58,31 @@ const Gallery: React.FC = () => {
     },
   ];
 
-  // Load uploaded images from localStorage
+  // Load uploaded images from API
   useEffect(() => {
-    const stored = localStorage.getItem("galleryImages");
-    const uploadedImages: UploadedImage[] = stored ? JSON.parse(stored) : [];
+    const loadGalleryImages = async () => {
+      try {
+        const uploadedImages: GalleryImage[] = await apiClient.getGalleryImages();
 
-    // Convert uploaded images to GalleryItem format
-    const convertedImages: GalleryItem[] = uploadedImages.map((img, idx) => ({
-      id: 100 + idx, // Use higher IDs to distinguish from defaults
-      title: img.title,
-      type: img.type,
-      description: img.description,
-      image: img.image,
-    }));
+        // Convert uploaded images to GalleryItem format
+        const convertedImages: GalleryItem[] = uploadedImages.map((img, idx) => ({
+          id: 100 + idx, // Use higher IDs to distinguish from defaults
+          title: img.title,
+          type: img.type,
+          description: img.description,
+          image: img.image,
+        }));
 
-    // Combine default and uploaded images
-    setAllItems([...defaultItems, ...convertedImages]);
+        // Combine default and uploaded images
+        setAllItems([...defaultItems, ...convertedImages]);
+      } catch (err) {
+        console.error("Failed to load gallery images:", err);
+        // Fallback to default items only
+        setAllItems(defaultItems);
+      }
+    };
+
+    loadGalleryImages();
   }, []);
 
   // Auto-play carousel
