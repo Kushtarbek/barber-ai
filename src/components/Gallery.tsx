@@ -168,14 +168,6 @@ const Gallery: React.FC = () => {
             ))}
           </div>
 
-          <button
-            className="autoplay-toggle"
-            onClick={() => setIsAutoplay(!isAutoplay)}
-            title={isAutoplay ? "Pause autoplay" : "Resume autoplay"}
-          >
-            {isAutoplay ? "Pause" : "Play"}
-          </button>
-
           <div className="gallery-socials">
             <h3>Follow</h3>
             <p className="socials-subtitle">See latest posts and styles. Questions? See you in DM.</p>
