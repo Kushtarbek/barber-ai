@@ -1,10 +1,10 @@
 import React from "react";
 
 const Footer: React.FC = () => {
-  const whatsappPhone = "12125551234"; // Replace with actual number
+  const whatsappPhone = "14088191933"; // Replace with actual number
   const googleMapsLocation = "https://maps.google.com/?q=Manhattan,New+York"; // Replace with actual location
   const yelpUrl = "https://www.yelp.com/biz/blade-and-brush"; // Replace with actual Yelp business page
-  const address = "123 Barber Street, Manhattan, NY 10001";
+  const address = "73 N San Tomas Aquino Rd, Campbell, CA 95008";
 
   return (
     <footer id="contact" className="site-footer panel panel-footer">
@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
           <div className="footer-col">
             <h3>Contact</h3>
             <p>
-              <a href="tel:+12125551234">+1 (212) 555-1234</a>
+              <a href="tel:+14088191933">+1 (408) 819-1933</a>
             </p>
             <p>
               <a href="mailto:hello@bladeandbrush.com">hello@bladeandbrush.com</a>
