@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer: React.FC = () => {
   const whatsappPhone = "14088191933"; // Replace with actual number
-  const googleMapsLocation = "https://maps.google.com/?q=Manhattan,New+York"; // Replace with actual location
+  const googleMapsLocation = "https://maps.google.com/?q=73+N+San+Tomas+Aquino+Rd,+Campbell,+CA+95008"; // Replace with actual location
   const yelpUrl = "https://www.yelp.com/biz/blade-and-brush"; // Replace with actual Yelp business page
   const address = "73 N San Tomas Aquino Rd, Campbell, CA 95008";
 
@@ -23,12 +23,12 @@ const Footer: React.FC = () => {
             </p>
             <p className="footer-actions">
               <a
-                className="btn btn-primary"
+                className="btn btn-secondary"
                 href={`https://wa.me/${whatsappPhone}?text=Hello%20Blade%20%26%20Brush%2C%20I%20would%20like%20to%20book%20an%20appointment`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Message on WhatsApp
+                Chat on WhatsApp
               </a>
             </p>
           </div>

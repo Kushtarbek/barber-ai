@@ -81,15 +81,6 @@ const Services: React.FC = () => {
       price: "$55",
       image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&h=700&fit=crop&q=80",
     },
-    {
-      id: 8,
-      icon: "✨",
-      name: "Premium Styling",
-      description: "Advanced styling with premium products",
-      duration: "45 min",
-      price: "$50",
-      image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&h=700&fit=crop&q=80",
-    },
   ];
 
   return (

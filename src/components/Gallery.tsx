@@ -125,7 +125,7 @@ const Gallery: React.FC = () => {
     <section className="gallery panel panel-gallery" id="gallery">
       <div className="panel-content panel-content-wide">
         <h2 className="panel-title">Gallery</h2>
-        <p className="panel-subtitle">A few recent looks—clean, modern, and timeless.</p>
+        <p className="panel-subtitle">Fresh cuts and happy clients—take a peek.</p>
 
         <div className="carousel-container">
           <div className="carousel-main">
