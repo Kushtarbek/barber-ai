@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
           className="nav-cta"
           onClick={() =>
             window.open(
-              "https://wa.me/12125551234?text=Hello%20Blade%20%26%20Brush%2C%20I%20would%20like%20to%20book%20an%20appointment",
+              "https://wa.me/14088191933?text=Hello%20Blade%20%26%20Brush%2C%20I%20would%20like%20to%20book%20an%20appointment",
               "_blank"
             )
           }
