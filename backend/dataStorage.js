@@ -52,6 +52,10 @@ const dataStorage = {
   // Gallery Images
   getGalleryImages: () => readDataFile('gallery.json'),
   saveGalleryImages: (images) => writeDataFile('gallery.json', images),
+
+  // Social embeds
+  getSocialEmbeds: () => readDataFile('socials.json'),
+  saveSocialEmbeds: (embeds) => writeDataFile('socials.json', embeds),
 };
 
 module.exports = dataStorage;

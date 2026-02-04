@@ -11,6 +11,7 @@ const appointmentsRouter = require('./routes/appointments');
 const customersRouter = require('./routes/customers');
 const messagesRouter = require('./routes/messages');
 const galleryRouter = require('./routes/gallery');
+const socialsRouter = require('./routes/socials');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -26,10 +27,11 @@ app.use(`${API_PREFIX}/appointments`, appointmentsRouter);
 app.use(`${API_PREFIX}/customers`, customersRouter);
 app.use(`${API_PREFIX}/messages`, messagesRouter);
 app.use(`${API_PREFIX}/gallery`, galleryRouter);
+app.use(`${API_PREFIX}/socials`, socialsRouter);
 
 // Health check endpoint
 app.get(`${API_PREFIX}/health`, (req, res) => {
-  res.json({ status: 'ok', message: 'Blade & Brush API is running' });
+  res.json({ status: 'ok', message: 'Tilek Studio API is running' });
 });
 
 // Serve static files from dist directory
@@ -64,7 +66,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, '127.0.0.1', () => {
-  console.log(`✅ Blade & Brush API server running on http://localhost:${PORT}`);
+  console.log(`✅ Tilek Studio API server running on http://localhost:${PORT}`);
   console.log(`   API endpoints available at http://localhost:${PORT}${API_PREFIX}`);
   console.log(`   Frontend available at http://localhost:${PORT}`);
   console.log('Press Ctrl+C to stop the server');

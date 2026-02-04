@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
             <p className="footer-actions">
               <a
                 className="btn btn-secondary"
-                href={`https://wa.me/${whatsappPhone}?text=Hello%20Blade%20%26%20Brush%2C%20I%20would%20like%20to%20book%20an%20appointment`}
+                href={`https://wa.me/${whatsappPhone}?text=Hello%20Tilek%20Studio%2C%20I%20would%20like%20to%20book%20an%20appointment`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="footer-bottom">
-          <div className="footer-legal">© 2026 Blade & Brush</div>
+          <div className="footer-legal">© 2026 Tilek Studio</div>
           <button className="footer-admin" onClick={() => (window as any).navigateToAdmin?.()}>
             Admin
           </button>

@@ -4,8 +4,8 @@ const Hero: React.FC = () => {
   return (
     <>
       <nav className="site-nav">
-        <div className="nav-logo" aria-label="Blade & Brush">
-          Blade & Brush
+        <div className="nav-logo" aria-label="Tilek Studio">
+          Tilek Studio
         </div>
         <ul className="nav-links" aria-label="Primary navigation">
           <li>
@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
       </nav>
       <section className="hero panel panel-hero" id="home">
         <div className="panel-content">
-          <h1 className="hero-title">Blade & Brush</h1>
+          <h1 className="hero-title">Tilek Studio</h1>
           <p className="hero-subtitle">Premium grooming, minimalist experience.</p>
 
           <div className="hero-buttons">

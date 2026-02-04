@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { apiClient, type Appointment, type Customer, type Message, type GalleryImage } from "../api/client";
+import { apiClient, type Appointment, type Customer, type Message, type GalleryImage, type SocialEmbed } from "../api/client";
 
 const AdminDashboard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"overview" | "appointments" | "customers" | "messages" | "gallery">(
+  const [activeTab, setActiveTab] = useState<"overview" | "appointments" | "customers" | "messages" | "gallery" | "social">(
     "overview"
   );
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [images, setImages] = useState<GalleryImage[]>([]);
+  const [socialEmbeds, setSocialEmbeds] = useState<SocialEmbed[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -18,6 +19,7 @@ const AdminDashboard: React.FC = () => {
     image: "",
   });
   const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [socialUrl, setSocialUrl] = useState("");
 
   // Load data from API
   useEffect(() => {
@@ -25,16 +27,18 @@ const AdminDashboard: React.FC = () => {
       try {
         setLoading(true);
         setError(null);
-        const [appts, custs, msgs, imgs] = await Promise.all([
+        const [appts, custs, msgs, imgs, socials] = await Promise.all([
           apiClient.getAppointments(),
           apiClient.getCustomers(),
           apiClient.getMessages(),
           apiClient.getGalleryImages(),
+          apiClient.getSocialEmbeds(),
         ]);
         setAppointments(appts);
         setCustomers(custs);
         setMessages(msgs);
         setImages(imgs);
+        setSocialEmbeds(socials);
       } catch (err) {
         console.error("Failed to load data:", err);
         setError("Failed to load data. Please check if the API server is running.");
@@ -101,6 +105,35 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
+  const handleSocialSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!socialUrl.trim()) {
+      alert("Paste an Instagram or TikTok link.");
+      return;
+    }
+    try {
+      const newEmbed = await apiClient.createSocialEmbed(socialUrl.trim());
+      setSocialEmbeds((prev) => [newEmbed, ...prev]);
+      setSocialUrl("");
+    } catch (err: any) {
+      console.error("Failed to add social embed:", err);
+      alert(err?.message || "Unable to add embed. Please check the link.");
+    }
+  };
+
+  const deleteSocialEmbed = async (id: string) => {
+    if (!confirm("Remove this embed from the landing page?")) {
+      return;
+    }
+    try {
+      await apiClient.deleteSocialEmbed(id);
+      setSocialEmbeds((prev) => prev.filter((embed) => embed.id !== id));
+    } catch (err) {
+      console.error("Failed to delete embed:", err);
+      alert("Unable to delete. Please try again.");
+    }
+  };
+
   const updateAppointmentStatus = async (id: string, status: "confirmed" | "completed" | "cancelled") => {
     try {
       const updated = await apiClient.updateAppointment(id, { status });
@@ -135,7 +168,7 @@ const AdminDashboard: React.FC = () => {
     return (
       <div className="admin-dashboard">
         <div className="admin-header">
-          <h1>Blade & Brush - Admin Dashboard</h1>
+          <h1>Tilek Studio - Admin Dashboard</h1>
         </div>
         <div style={{ padding: "2rem", textAlign: "center" }}>Loading...</div>
       </div>
@@ -146,7 +179,7 @@ const AdminDashboard: React.FC = () => {
     return (
       <div className="admin-dashboard">
         <div className="admin-header">
-          <h1>Blade & Brush - Admin Dashboard</h1>
+          <h1>Tilek Studio - Admin Dashboard</h1>
         </div>
         <div style={{ padding: "2rem", textAlign: "center", color: "red" }}>
           {error}
@@ -160,7 +193,7 @@ const AdminDashboard: React.FC = () => {
   return (
     <div className="admin-dashboard">
       <div className="admin-header">
-        <h1>Blade & Brush - Admin Dashboard</h1>
+          <h1>Tilek Studio - Admin Dashboard</h1>
         <button className="btn-back" onClick={() => (window as any).navigateBack?.()}>
           ← Back to Website
         </button>
@@ -187,6 +220,9 @@ const AdminDashboard: React.FC = () => {
         </button>
         <button className={`tab ${activeTab === "gallery" ? "active" : ""}`} onClick={() => setActiveTab("gallery")}>
           🖼️ Gallery ({images.length})
+        </button>
+        <button className={`tab ${activeTab === "social" ? "active" : ""}`} onClick={() => setActiveTab("social")}>
+          📱 Social
         </button>
       </div>
 
@@ -444,6 +480,45 @@ const AdminDashboard: React.FC = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Social Tab */}
+        {activeTab === "social" && (
+          <div className="social-section">
+            <h2>Landing Page Videos</h2>
+            <form onSubmit={handleSocialSubmit} className="social-form">
+              <div className="form-group">
+                <label>Instagram or TikTok Link</label>
+                <input
+                  type="url"
+                  value={socialUrl}
+                  onChange={(e) => setSocialUrl(e.target.value)}
+                  placeholder="https://www.instagram.com/reel/DSLN3obErYD/"
+                />
+              </div>
+              <button type="submit" className="btn-submit">
+                Add video
+              </button>
+            </form>
+
+            <div className="social-list">
+              {socialEmbeds.length === 0 ? (
+                <p className="no-data">No videos yet. Paste a link above.</p>
+              ) : (
+                socialEmbeds.map((embed) => (
+                  <div key={embed.id} className="social-item">
+                    <div className="social-item-details">
+                      <strong>{embed.platform === "instagram" ? "Instagram" : "TikTok"}</strong>
+                      <span>{embed.url}</span>
+                    </div>
+                    <button className="btn-delete" onClick={() => deleteSocialEmbed(embed.id)}>
+                      Remove
+                    </button>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         )}

@@ -39,6 +39,14 @@ interface GalleryImage {
   uploadedAt: string;
 }
 
+interface SocialEmbed {
+  id: string;
+  platform: "instagram" | "tiktok";
+  url: string;
+  embedUrl: string;
+  createdAt: string;
+}
+
 class ApiClient {
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -172,7 +180,25 @@ class ApiClient {
       method: 'DELETE',
     });
   }
+
+  // Social embeds
+  async getSocialEmbeds(): Promise<SocialEmbed[]> {
+    return this.request<SocialEmbed[]>('/socials');
+  }
+
+  async createSocialEmbed(url: string): Promise<SocialEmbed> {
+    return this.request<SocialEmbed>('/socials', {
+      method: 'POST',
+      body: JSON.stringify({ url }),
+    });
+  }
+
+  async deleteSocialEmbed(id: string): Promise<void> {
+    await this.request(`/socials/${id}`, {
+      method: 'DELETE',
+    });
+  }
 }
 
 export const apiClient = new ApiClient();
-export type { Appointment, Customer, Message, GalleryImage };
+export type { Appointment, Customer, Message, GalleryImage, SocialEmbed };

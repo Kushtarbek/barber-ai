@@ -1,4 +1,4 @@
-# Fixes Applied to Blade & Brush Project
+# Fixes Applied to Tilek Studio Project
 
 ## ✅ Issues Fixed
 
@@ -66,7 +66,7 @@ The "EPERM: operation not permitted" error is a macOS security feature. To fix:
 
 ## 📸 Project Preview
 
-The Blade & Brush website includes:
+The Tilek Studio website includes:
 - ✂️ Hero section with navigation
 - 📅 Services section with flip cards
 - 🖼️ Gallery with image carousel

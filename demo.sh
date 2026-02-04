@@ -1,9 +1,9 @@
 #!/bin/bash
-# Blade & Brush - Run and open in browser
+# Tilek Studio - Run and open in browser
 
 cd "$(dirname "$0")"
 
-echo "🚀 Blade & Brush - Starting demo..."
+echo "🚀 Tilek Studio - Starting demo..."
 echo ""
 
 # Build if needed

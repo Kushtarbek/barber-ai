@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Blade & Brush - Server Startup Script
-echo "🚀 Starting Blade & Brush server..."
+# Tilek Studio - Server Startup Script
+echo "🚀 Starting Tilek Studio server..."
 
 # Check if dist folder exists
 if [ ! -d "dist" ]; then

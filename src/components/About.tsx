@@ -7,9 +7,10 @@ const About: React.FC = () => {
         <h2 className="panel-title">About</h2>
         <p className="panel-subtitle">Timeless tradition. Modern precision.</p>
         <p className="about-body">
-          Blade & Brush is your neighborhood barbershop where tradition meets modern detail. Our team focuses on clean
+          Tilek Studio is your neighborhood barbershop where tradition meets modern detail. Our team focuses on clean
           cuts, consistent results, and an experience that feels effortless from start to finish.
         </p>
+        <p className="about-body">Coming soon...</p>
       </div>
     </section>
   );

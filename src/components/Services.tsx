@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 interface Service {
   id: number;
-  icon: string;
   name: string;
   description: string;
   duration: string;
   price: string;
   image: string;
+  frontImage?: string; // Optional image to show on the front of the card
 }
 
 const Services: React.FC = () => {
@@ -29,57 +29,57 @@ const Services: React.FC = () => {
   const services: Service[] = [
     {
       id: 1,
-      icon: "✂️",
       name: "Men's Classic Haircut",
       description: "Traditional cuts with modern precision",
       duration: "30 min",
       price: "$35",
-      image: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=500&h=700&fit=crop&q=80",
+      image: "/images/classic-haircut.png",
+      frontImage: "/images/classic-haircut.png",
     },
     {
       id: 2,
-      icon: "💧",
       name: "Beard Trim & Shaping",
       description: "Expert beard shaping and maintenance",
       duration: "20 min",
       price: "$25",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=700&fit=crop&q=80",
+      image: "/images/beard-trim.png",
+      frontImage: "/images/beard-trim.png",
     },
     {
       id: 3,
-      icon: "⭐",
       name: "Full Men's Grooming",
       description: "Haircut, beard, and facial treatment",
       duration: "60 min",
       price: "$65",
-      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&h=700&fit=crop&q=80",
+      image: "/images/mens-grooming.png",
+      frontImage: "/images/mens-grooming.png",
     },
     {
       id: 4,
-      icon: "✂️",
       name: "Kids Cut",
       description: "Gentle cuts for the little ones",
       duration: "20 min",
       price: "$25",
-      image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=500&h=700&fit=crop&q=80",
+      image: "/images/kids-cut.png",
+      frontImage: "/images/kids-cut.png",
     },
     {
       id: 5,
-      icon: "👩‍🦰",
       name: "Women's Haircut",
       description: "Stylish cuts and precision styling",
       duration: "45 min",
       price: "$45",
-      image: "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=500&h=700&fit=crop&q=80",
+      image: "/images/womens-haircut.png",
+      frontImage: "/images/womens-haircut.png",
     },
     {
       id: 6,
-      icon: "🎨",
       name: "Hair Coloring",
       description: "Professional hair coloring for men and women",
       duration: "60 min",
       price: "$55",
-      image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&h=700&fit=crop&q=80",
+      image: "/images/hair-coloring.png",
+      frontImage: "/images/hair-coloring.png",
     },
   ];
 
@@ -99,18 +99,19 @@ const Services: React.FC = () => {
               aria-label={`View ${service.name}`}
             >
               <div className={`service-flip-inner ${flipped[service.id] ? "flipped" : ""}`}>
-                <div className="service-flip-front">
-                  <div className="service-icon" aria-hidden="true">
-                    {service.icon}
+                <div 
+                  className={`service-flip-front ${service.frontImage ? "has-front-image" : ""}`}
+                  style={service.frontImage ? { backgroundImage: `url(${service.frontImage})` } : undefined}
+                >
+                  {service.frontImage && <div className="service-front-overlay" />}
+                  <div className="service-content">
+                    <h3>{service.name}</h3>
+                    <p>{service.description}</p>
+                    <div className="service-meta">
+                      <div className="service-duration">{service.duration}</div>
+                      <div className="service-price">{service.price}</div>
+                    </div>
                   </div>
-                  <h3>{service.name}</h3>
-                  <p>{service.description}</p>
-                  <div className="service-divider"></div>
-                  <div className="service-meta">
-                    <div className="service-duration">{service.duration}</div>
-                    <div className="service-price">{service.price}</div>
-                  </div>
-                  <div className="flip-hint">Tap to preview</div>
                 </div>
 
                 <div className="service-flip-back" aria-hidden={!flipped[service.id]}>

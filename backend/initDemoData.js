@@ -5,6 +5,8 @@ function initDemoData() {
   const appointments = dataStorage.getAppointments();
   const customers = dataStorage.getCustomers();
   const messages = dataStorage.getMessages();
+  const socialEmbeds = dataStorage.getSocialEmbeds();
+  const { buildEmbedUrl } = require("./utils/socials");
 
   // Only initialize if data is empty
   if (appointments.length === 0) {
@@ -88,6 +90,28 @@ function initDemoData() {
     ];
     dataStorage.saveMessages(demoMessages);
     console.log("✅ Initialized demo messages");
+  }
+
+  if (socialEmbeds.length === 0) {
+    dataStorage.saveSocialEmbeds([
+      {
+        id: "1",
+        platform: "instagram",
+        url: "https://www.instagram.com/reel/DSLN3obErYD/",
+        embedUrl: "https://www.instagram.com/reel/DSLN3obErYD/embed",
+        createdAt: new Date().toISOString(),
+      },
+    ]);
+    console.log("✅ Initialized social embeds");
+  } else {
+    const updated = socialEmbeds.map((embed) => {
+      const recalculated = buildEmbedUrl(embed.url);
+      if (recalculated && recalculated !== embed.embedUrl) {
+        return { ...embed, embedUrl: recalculated };
+      }
+      return embed;
+    });
+    dataStorage.saveSocialEmbeds(updated);
   }
 }
 

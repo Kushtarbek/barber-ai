@@ -1,6 +1,6 @@
-# Blade & Brush Backend API
+# Tilek Studio Backend API
 
-This is the backend API server for the Blade & Brush barbershop website.
+This is the backend API server for the Tilek Studio barbershop website.
 
 ## Setup
 

@@ -1,8 +1,8 @@
-# Blade & Brush - Setup Guide
+# Tilek Studio - Setup Guide
 
 ## Overview
 
-Blade & Brush is a barbershop website with a React frontend and Express.js backend API.
+Tilek Studio is a barbershop website with a React frontend and Express.js backend API.
 
 ## Prerequisites
 

@@ -46,7 +46,7 @@ curl http://localhost:8080/api/health
 
 You should see:
 ```json
-{"status":"ok","message":"Blade & Brush API is running"}
+{"status":"ok","message":"Tilek Studio API is running"}
 ```
 
 ## Access the Application

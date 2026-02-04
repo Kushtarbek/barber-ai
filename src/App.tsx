@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
+import SocialEmbedSection from "./components/SocialEmbed";
 import Gallery from "./components/Gallery";
 import About from "./components/About";
 import Footer from "./components/Footer";
@@ -45,6 +46,7 @@ const App: React.FC = () => {
     <div className="site">
       <Hero />
       <Services />
+      <SocialEmbedSection />
       <Gallery />
       <About />
       <Footer />

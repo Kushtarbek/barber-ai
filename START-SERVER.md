@@ -1,4 +1,4 @@
-# Starting the Blade & Brush Server
+# Starting the Tilek Studio Server
 
 ## macOS Network Permission Issue
 
@@ -48,4 +48,4 @@ Check if the server is responding:
 curl http://localhost:8888/api/health
 ```
 
-You should see: `{"status":"ok","message":"Blade & Brush API is running"}`
+You should see: `{"status":"ok","message":"Tilek Studio API is running"}`

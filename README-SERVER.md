@@ -1,4 +1,4 @@
-# Blade & Brush - Server Setup
+# Tilek Studio - Server Setup
 
 ## Quick Start
 

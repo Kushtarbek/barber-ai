@@ -75,7 +75,7 @@ npm run server
 
 You should see:
 ```
-✅ Blade & Brush API server running on http://localhost:5000
+✅ Tilek Studio API server running on http://localhost:5000
 ```
 
 Then open your browser to: **http://localhost:5000**
