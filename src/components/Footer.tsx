@@ -19,38 +19,36 @@ const Footer: React.FC = () => {
               <a href="tel:+14088191933">+1 (408) 819-1933</a>
             </p>
             <p>
-              <a href="mailto:hello@bladeandbrush.com">hello@bladeandbrush.com</a>
-            </p>
-            <p className="footer-actions">
-              <a
-                className="btn btn-secondary"
-                href={`https://wa.me/${whatsappPhone}?text=Hello%20Tilek%20Studio%2C%20I%20would%20like%20to%20book%20an%20appointment`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Chat on WhatsApp
-              </a>
+              <a href="mailto:hello@tilekstudio.com">hello@tilekstudio.com</a>
             </p>
           </div>
 
           <div className="footer-col">
             <h3>Location</h3>
             <p>{address}</p>
-            <p className="footer-actions">
-              <a className="btn btn-secondary" href={googleMapsLocation} target="_blank" rel="noopener noreferrer">
-                Open in Maps
-              </a>
-            </p>
           </div>
 
           <div className="footer-col">
             <h3>Reviews</h3>
-            <p className="footer-actions">
-              <a className="btn btn-secondary" href={yelpUrl} target="_blank" rel="noopener noreferrer">
-                Review on Yelp
-              </a>
-            </p>
+            <p className="footer-col-muted">Leave us a review</p>
           </div>
+        </div>
+
+        <div className="footer-actions">
+          <a
+            className="btn btn-secondary btn-footer"
+            href={`https://wa.me/${whatsappPhone}?text=Hello%20Tilek%20Studio%2C%20I%20would%20like%20to%20book%20an%20appointment`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chat on WhatsApp
+          </a>
+          <a className="btn btn-secondary btn-footer" href={googleMapsLocation} target="_blank" rel="noopener noreferrer">
+            Open in Maps
+          </a>
+          <a className="btn btn-secondary btn-footer" href={yelpUrl} target="_blank" rel="noopener noreferrer">
+            Review on Yelp
+          </a>
         </div>
 
         <div className="footer-bottom">

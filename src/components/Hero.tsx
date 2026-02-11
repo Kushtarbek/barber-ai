@@ -42,7 +42,7 @@ const Hero: React.FC = () => {
           <p className="hero-subtitle">Premium grooming, minimalist experience.</p>
 
           <div className="hero-buttons">
-            <a href="#services" className="btn btn-primary">
+            <a href="#services" className="btn btn-secondary">
               Explore services
             </a>
             <a
