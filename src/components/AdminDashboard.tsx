@@ -168,9 +168,11 @@ const AdminDashboard: React.FC = () => {
     return (
       <div className="admin-dashboard">
         <div className="admin-header">
-          <h1>Tilek Studio - Admin Dashboard</h1>
+          <h1>Tilek Studio Admin</h1>
         </div>
-        <div style={{ padding: "2rem", textAlign: "center" }}>Loading...</div>
+        <div className="admin-content">
+          <p className="no-data">Loading...</p>
+        </div>
       </div>
     );
   }
@@ -179,12 +181,13 @@ const AdminDashboard: React.FC = () => {
     return (
       <div className="admin-dashboard">
         <div className="admin-header">
-          <h1>Tilek Studio - Admin Dashboard</h1>
+          <h1>Tilek Studio Admin</h1>
         </div>
-        <div style={{ padding: "2rem", textAlign: "center", color: "red" }}>
-          {error}
-          <br />
-          <small>Make sure the backend server is running on port 8080</small>
+        <div className="admin-content">
+          <div className="message-card" style={{ borderLeftColor: "#dc3545" }}>
+            <p style={{ color: "#c62828", marginBottom: "0.5rem" }}>{error}</p>
+            <small style={{ color: "#5c5e62" }}>Make sure the backend server is running on port 8080</small>
+          </div>
         </div>
       </div>
     );
@@ -193,36 +196,36 @@ const AdminDashboard: React.FC = () => {
   return (
     <div className="admin-dashboard">
       <div className="admin-header">
-          <h1>Tilek Studio - Admin Dashboard</h1>
+        <h1>Tilek Studio Admin</h1>
         <button className="btn-back" onClick={() => (window as any).navigateBack?.()}>
-          ← Back to Website
+          Back to Website
         </button>
       </div>
 
       <div className="admin-tabs">
         <button className={`tab ${activeTab === "overview" ? "active" : ""}`} onClick={() => setActiveTab("overview")}>
-          📊 Overview
+          Overview
         </button>
         <button
           className={`tab ${activeTab === "appointments" ? "active" : ""}`}
           onClick={() => setActiveTab("appointments")}
         >
-          📅 Appointments ({appointments.length})
+          Appointments ({appointments.length})
         </button>
         <button
           className={`tab ${activeTab === "customers" ? "active" : ""}`}
           onClick={() => setActiveTab("customers")}
         >
-          👥 Customers ({customers.length})
+          Customers ({customers.length})
         </button>
         <button className={`tab ${activeTab === "messages" ? "active" : ""}`} onClick={() => setActiveTab("messages")}>
-          💬 Messages ({stats.unreadMessages} new)
+          Messages ({stats.unreadMessages} new)
         </button>
         <button className={`tab ${activeTab === "gallery" ? "active" : ""}`} onClick={() => setActiveTab("gallery")}>
-          🖼️ Gallery ({images.length})
+          Gallery ({images.length})
         </button>
         <button className={`tab ${activeTab === "social" ? "active" : ""}`} onClick={() => setActiveTab("social")}>
-          📱 Social
+          Social
         </button>
       </div>
 

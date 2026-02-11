@@ -101,17 +101,41 @@ function initDemoData() {
         embedUrl: "https://www.instagram.com/reel/DSLN3obErYD/embed",
         createdAt: new Date().toISOString(),
       },
+      {
+        id: "2",
+        platform: "tiktok",
+        url: "https://www.tiktok.com/@barbershop.america/video/7325123456789012345",
+        embedUrl: "https://www.tiktok.com/embed/v2/7325123456789012345",
+        createdAt: new Date().toISOString(),
+      },
     ]);
     console.log("✅ Initialized social embeds");
   } else {
-    const updated = socialEmbeds.map((embed) => {
+    let updated = socialEmbeds.map((embed) => {
       const recalculated = buildEmbedUrl(embed.url);
       if (recalculated && recalculated !== embed.embedUrl) {
         return { ...embed, embedUrl: recalculated };
       }
       return embed;
     });
-    dataStorage.saveSocialEmbeds(updated);
+    // Add TikTok example if we only have Instagram (migration for 2-column layout)
+    const hasTiktok = updated.some((e) => e.platform === "tiktok");
+    if (!hasTiktok) {
+      updated = [
+        ...updated,
+        {
+          id: (Date.now() + 1).toString(),
+          platform: "tiktok",
+          url: "https://www.tiktok.com/@barbershop.america/video/7325123456789012345",
+          embedUrl: "https://www.tiktok.com/embed/v2/7325123456789012345",
+          createdAt: new Date().toISOString(),
+        },
+      ];
+      dataStorage.saveSocialEmbeds(updated);
+      console.log("✅ Added TikTok column placeholder");
+    } else {
+      dataStorage.saveSocialEmbeds(updated);
+    }
   }
 }
 

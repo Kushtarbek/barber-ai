@@ -16,11 +16,15 @@ npm run server
 npm start
 ```
 
-The server will run on `http://localhost:3001` by default.
+The server will run on `http://localhost:8080` by default.
 
 ## API Endpoints
 
-All API endpoints are prefixed with `/api`.
+All API endpoints are prefixed with `/api`. Base URL: `http://localhost:8080/api`
+
+### Health Check
+
+- `GET /api/health` - Check if API is running
 
 ### Appointments
 
@@ -105,6 +109,23 @@ All API endpoints are prefixed with `/api`.
 }
 ```
 
+### Social Embeds (Instagram / TikTok)
+
+- `GET /api/socials` - Get all social media embeds
+- `POST /api/socials` - Add embed (body: `{ "url": "https://instagram.com/reel/..." }`)
+- `DELETE /api/socials/:id` - Remove embed by ID
+
+**Social Embed Object:**
+```json
+{
+  "id": "string",
+  "platform": "instagram" | "tiktok",
+  "url": "string",
+  "embedUrl": "string",
+  "createdAt": "string (ISO 8601)"
+}
+```
+
 ### Health Check
 
 - `GET /api/health` - Check if API is running
@@ -116,6 +137,7 @@ Data is stored in JSON files in the `backend/data/` directory:
 - `customers.json`
 - `messages.json`
 - `gallery.json`
+- `socials.json`
 
 The data directory is automatically created when the server starts.
 
@@ -135,10 +157,10 @@ npm run server
 
 ## Environment Variables
 
-- `PORT` - Server port (default: 3001)
+- `PORT` - Server port (default: 8080)
 
 ## Frontend Integration
 
-The frontend is configured to use the API. In development mode, Vite proxies API requests to `http://localhost:3001/api`.
+The frontend is configured to use the API. In development mode, Vite proxies API requests to `http://localhost:8080/api`.
 
 For production, set the `VITE_API_URL` environment variable to your API URL.
